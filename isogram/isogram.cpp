@@ -4,11 +4,15 @@
 
 // Для фукнций std::isalpha и std::toupper используйте эту локаль
 std::locale locale{""};
-
 auto is_isogram(std::string const& word) -> bool {
-    // Функция is_isogram получает на вход строку word
-    // Возвращает true, если строка является изограммой,
-    // и false, если не явялется
-    // Код пишите здесь
-    return word.empty();
+    std::set<char> letters;
+    for (auto ch : word) {
+        if (std::isalpha(ch, locale)) {
+            ch = std::tolower(ch, locale);
+            if (letters.find(ch) != letters.end())
+                return false;
+            letters.insert(ch);
+        }
+    }
+    return true;
 }
